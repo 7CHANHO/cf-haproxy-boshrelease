@@ -1,0 +1,30 @@
+global_defs {
+	# Keepalived process identifier
+	lvs_id <% if defined?p('keepalived.lvs_id').nil? %> <%= p('keepalived.lvs_id')%> <% else %> <%= spec.name %> <% end %>
+}
+# Script used to check if HAProxy is running
+vrrp_script <%= p('keepalived.healthcheck_name') %> {
+	script "<%= p('keepalived.healthcheck_command') %>"
+	interval 2
+	weight 2
+}
+# Virtual interface
+# The priority specifies the order in which the assigned interface to take over in a failover
+vrrp_instance <%= spec.name+'_'+p('keepalived.healthcheck_name') %> {
+	<% if spec.bootstrap %>
+	state MASTER
+	priority 101
+	<% else %>
+	state SLAVE
+	priority 100
+	<% end %>
+	interface <%= p('keepalived.interface') %>
+	virtual_router_id 51
+# The virtual ip address shared between the two loadbalancers
+	virtual_ipaddress {
+		<%= p('keepalived.vip') %>
+	}
+	track_script {
+		<%= p('keepalived.healthcheck_name') %>
+	}
+}

@@ -4,3 +4,9 @@ check process haproxy
   stop program "/var/vcap/jobs/haproxy/bin/monit_debugger haproxy_ctl '/var/vcap/jobs/haproxy/bin/haproxy_ctl stop'"
   group vcap
 
+check process keepalived
+  with pidfile /var/vcap/sys/run/keepalived/pid
+  start program "/var/vcap/jobs/haproxy/bin/keepalived_ctl start"
+  stop program "/var/vcap/jobs/haproxy/bin/keepalived_ctl stop"
+  group vcap
+

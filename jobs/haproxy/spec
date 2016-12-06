@@ -6,6 +6,7 @@ description: "The HAProxy server can be used to terminate SSL in front of the Ro
 packages:
 - haproxy
 - ttar
+- keepalived
 
 templates:
   haproxy.config.erb:        config/haproxy.config
@@ -16,6 +17,8 @@ templates:
   helpers/ctl_setup.sh:      helpers/ctl_setup.sh
   helpers/ctl_utils.sh:      helpers/ctl_utils.sh
   properties.sh.erb:    data/properties.sh
+  keepalived_ctl: 		bin/keepalived_ctl
+  keepalived.config.erb: 	config/keepalived.config
 
 properties:
   ha_proxy.syslog_server:
@@ -27,7 +30,7 @@ properties:
   ha_proxy.internal_only_domains:
     description: "Array of domains for internal-only apps/services (not hostnames for the apps/services)"
     default: []
-  ha_proxy.trusted_domain_cidrs:
+  ha_proxy.trusted_domain_cidrs: 
     description: "Space separated trusted cidr blocks for internal_only_domains"
     default: 0.0.0.0/32
   ha_proxy.ssl_pem:
@@ -128,6 +131,7 @@ properties:
           - 10.20.10.11
           backend_port: 80 # optional - sets backend port - otherwise defaults to `port`
           ssl: true        # optional - enables ssl, and uses the `ha_proxy.ssl_pem` provided key
+
   ha_proxy.resolvers:
     description: "List of DNS servers"
     example:
@@ -140,3 +144,23 @@ properties:
   ha_proxy.accept_proxy:
     description: "Allow accept proxy"
     default: false
+
+  keepalived.vip:
+    description: VIP that will be given to master
+  keepalived.healthcheck_name:
+    description: name of healthcheck that will be performed
+    default: check_haproxy
+  keepalived.healthcheck_command:
+    description: check that will be performed
+    default: killall -0 haproxy
+  keepalived.interface:
+    description: interface keepalived will use to mount the VIP
+    default: eth0
+  keepalived.master_priority:
+    description: master weight
+    default: 101
+  keepalived.slave_priority:
+    description: slave weight
+    default: 100
+  keepalived.lvs_id:
+    description : Keepalived process identifier. Default value is job name (spec.name)

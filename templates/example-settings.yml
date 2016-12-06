@@ -17,3 +17,13 @@ meta:
       keepalive_timeout:    1
       queue_timeout:       30
       accept_proxy: "accept-proxy"
+    keepalived:
+      vip: '192.168.0.1'
+      healthcheck_name: 'check_haproxy'
+      healthcheck_command: 'killall -0 haproxy'
+      interface: 'eth0'
+      masterip: '192.168.0.2'
+      vrrp_instance_name: 'VI_01'
+      master_priority: '101'
+      slave_priority: '100'
+      lvs_id: 'haproxy_DH'

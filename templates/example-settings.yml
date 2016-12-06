@@ -27,3 +27,4 @@ meta:
       master_priority: '101'
       slave_priority: '100'
       lvs_id: 'haproxy_DH'
+      role: 'master or slave'

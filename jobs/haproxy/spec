@@ -163,4 +163,6 @@ properties:
     description: slave weight
     default: 100
   keepalived.lvs_id:
-    description : Keepalived process identifier. Default value is job name (spec.name)
+    description: Keepalived process identifier. Default value is job name (spec.name)
+  keepalived.role:
+    description: master or slave

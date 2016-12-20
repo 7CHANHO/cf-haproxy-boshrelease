@@ -19,6 +19,7 @@ templates:
   properties.sh.erb:    data/properties.sh
   keepalived_ctl: 		bin/keepalived_ctl
   keepalived.config.erb: 	config/keepalived.config
+  pre-start.sh.erb: bin/pre-start.sh
 
 properties:
   ha_proxy.syslog_server:
@@ -29,6 +30,9 @@ properties:
     default: "info"
   ha_proxy.internal_only_domains:
     description: "Array of domains for internal-only apps/services (not hostnames for the apps/services)"
+    default: []
+  ha_proxy.allowed_domains:
+    description: "Array of domains for allowed domains of apps/services"
     default: []
   ha_proxy.trusted_domain_cidrs: 
     description: "Space separated trusted cidr blocks for internal_only_domains"

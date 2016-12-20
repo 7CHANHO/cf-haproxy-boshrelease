@@ -6,6 +6,7 @@ meta:
     # backend_servers will be supplied by make_manifest parameters (but if not using that, feel free to add here
     # and make sure to save this example elsewhere
       internal_only_domains: []
+      allowed_domains: []
       disable_http: false
       enable_4443:  false
       backend_port: 80

@@ -86,6 +86,13 @@ end
     http-request deny if internal !private
 <% end %>
 
+<% if p("ha_proxy.allowed_domains").size > 0 %>
+<% p("ha_proxy.allowed_domains").each do |domain| %>
+    acl allowed_domain hdr(Host) -m sub <%= domain %>
+<% end %>
+    http-request deny if !allowed_domain
+<% end %>
+
 <% p('ha_proxy.routed_backend_servers').keys.each do |prefix| %>
 <% prefix_hash = (Digest::SHA256.hexdigest prefix.to_s)[0..5] %>
     acl routed_backend_<%= prefix_hash %> path_beg <%= prefix %>
@@ -143,6 +150,13 @@ end
     http-request deny if internal !private
 <% end %>
 
+<% if p("ha_proxy.allowed_domains").size > 0 %>
+<% p("ha_proxy.allowed_domains").each do |domain| %>
+    acl allowed_domain hdr(Host) -m sub <%= domain %>
+<% end %>
+    http-request deny if !allowed_domain
+<% end %>
+
 <% p('ha_proxy.routed_backend_servers').keys.each do |prefix| %>
 <% prefix_hash = (Digest::SHA256.hexdigest prefix.to_s)[0..5] %>
   acl routed_backend_<%= prefix_hash %> path_beg <%= prefix %>
@@ -181,6 +195,13 @@ end
     acl internal hdr(Host) -m sub <%= domain %>
 <% end %>
     http-request deny if internal public
+<% end %>
+
+<% if p("ha_proxy.allowed_domains").size > 0 %>
+<% p("ha_proxy.allowed_domains").each do |domain| %>
+    acl allowed_domain hdr(Host) -m sub <%= domain %>
+<% end %>
+    http-request deny if !allowed_domain
 <% end %>
 
 <% p('ha_proxy.routed_backend_servers').keys.each do |prefix| %>

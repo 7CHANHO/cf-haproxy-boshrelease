@@ -9,6 +9,7 @@ packages:
 - keepalived
 
 templates:
+  pre-start.sh.erb:          bin/pre-start
   haproxy.config.erb:        config/haproxy.config
   haproxy_ctl:               bin/haproxy_ctl
   monit_debugger:            bin/monit_debugger
@@ -19,7 +20,6 @@ templates:
   properties.sh.erb:    data/properties.sh
   keepalived_ctl: 		bin/keepalived_ctl
   keepalived.config.erb: 	config/keepalived.config
-  pre-start.sh.erb: bin/pre-start.sh
 
 properties:
   ha_proxy.syslog_server:

@@ -16,11 +16,11 @@ vrrp_instance <%= spec.name+'_'+p('keepalived.healthcheck_name') %> {
 	state MASTER
 	priority 101
 	<% else %>
-	state SLAVE
+	state BACKUP
 	priority 100
 	<% end %>
 	<% else %>
-	state SLAVE
+	state BACKUP
 	priority 100
 	<% end %>
 	interface <%= p('keepalived.interface') %>

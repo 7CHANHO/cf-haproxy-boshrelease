@@ -20,7 +20,6 @@ defaults
     timeout client          <%= p("ha_proxy.client_timeout").to_i     * 1000 %>ms
     timeout server          <%= p("ha_proxy.server_timeout").to_i     * 1000 %>ms
     timeout tunnel          <%= p("ha_proxy.websocket_timeout").to_i  * 1000 %>ms
-    timeout http-keep-alive <%= p("ha_proxy.keepalive_timeout").to_i  * 1000 %>ms
     timeout http-request    <%= p("ha_proxy.request_timeout").to_i    * 1000 %>ms
     timeout queue           <%= p("ha_proxy.queue_timeout").to_i      * 1000 %>ms
 

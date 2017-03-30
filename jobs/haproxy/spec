@@ -71,9 +71,6 @@ properties:
   ha_proxy.websocket_timeout:
     description: "Timeout for websocket/tunnel traffic (in seconds)"
     default:     3600
-  ha_proxy.keepalive_timeout:
-    description: "Timeout waiting for new HTTP requests under http keep-alive mode (in seconds)"
-    default:     1
   ha_proxy.request_timeout:
     description: "Maximum HTTP request length (in seconds)"
     default:     30

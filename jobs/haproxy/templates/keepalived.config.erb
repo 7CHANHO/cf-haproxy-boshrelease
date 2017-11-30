@@ -12,19 +12,19 @@ vrrp_script <%= p('keepalived.healthcheck_name') %> {
 # The priority specifies the order in which the assigned interface to take over in a failover
 vrrp_instance <%= spec.name+'_'+p('keepalived.healthcheck_name') %> {
 	<% if p('keepalived.role') == 'master' %>
-	<% if spec.bootstrap %>
-	state MASTER
-	priority 101
+		<% if spec.bootstrap %>
+			state MASTER
+			priority 150
+		<% else %>
+			state BACKUP
+			priority 100
+		<% end %>
 	<% else %>
-	state BACKUP
-	priority 100
-	<% end %>
-	<% else %>
-	state BACKUP
-	priority 100
+		state BACKUP
+		priority 100
 	<% end %>
 	interface <%= p('keepalived.interface') %>
-	virtual_router_id 51
+	virtual_router_id <%= p('keepalived.vrid') %>
 # The virtual ip address shared between the two loadbalancers
 	virtual_ipaddress {
 		<%= p('keepalived.vip') %>

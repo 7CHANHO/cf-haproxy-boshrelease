@@ -167,3 +167,5 @@ properties:
     description: Keepalived process identifier. Default value is job name (spec.name)
   keepalived.role:
     description: master or slave
+  keepalived.vrid:
+    description: Keppavlied Virtual Router ID
